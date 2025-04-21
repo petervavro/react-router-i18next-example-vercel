@@ -23,3 +23,11 @@ export const [i18nextMiddleware, getLocale, getInstance] =
     },
     plugins: [initReactI18next],
   });
+
+declare module "i18next" {
+  interface CustomTypeOptions {
+    resources: {
+      translation: typeof en;
+    };
+  }
+}
