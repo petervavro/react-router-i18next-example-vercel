@@ -1,14 +1,8 @@
 import { data } from "react-router";
 import { cacheHeader } from "pretty-cache-header";
 import { z } from "zod";
-import enTranslation from "~/locales/en";
-import esTranslation from "~/locales/es";
+import resources from "~/locales";
 import type { Route } from "./+types/locales";
-
-const resources = {
-  en: { translation: enTranslation },
-  es: { translation: esTranslation },
-};
 
 export async function loader({ params }: Route.LoaderArgs) {
   const lng = z

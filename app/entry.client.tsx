@@ -5,7 +5,6 @@ import { hydrateRoot } from "react-dom/client";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import { HydratedRouter } from "react-router/dom";
 import I18nextBrowserLanguageDetector from "i18next-browser-languagedetector";
-import { getInitialNamespaces } from "remix-i18next/client";
 
 async function main() {
   await i18next
@@ -14,7 +13,6 @@ async function main() {
     .use(I18nextBrowserLanguageDetector)
     .init({
       fallbackLng: "en",
-      ns: getInitialNamespaces(),
       detection: { order: ["htmlTag"], caches: [] },
       backend: { loadPath: "/api/locales/{{lng}}/{{ns}}" },
     });

@@ -1,4 +1,4 @@
-import { data } from "react-router";
+import { data, href, Link } from "react-router";
 import { Form } from "react-router";
 import { useTranslation } from "react-i18next";
 import type { Route } from "./+types";
@@ -22,6 +22,8 @@ export default function Index({ loaderData }: Route.ComponentProps) {
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
       <h1>{t("title")}</h1>
       <p>{loaderData.description}</p>
+
+      <Link to={href("/*", { "*": "not-found" })}>{t("goToNotFound")}</Link>
 
       <Form>
         <button type="submit" name="lng" value="es">
