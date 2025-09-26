@@ -6,10 +6,7 @@ import type { Route } from "./+types/locales";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const lng = z
-    .string()
-    .refine((lng): lng is keyof typeof resources =>
-      Object.keys(resources).includes(lng)
-    )
+    .enum(Object.keys(resources) as Array<keyof typeof resources>)
     .safeParse(params.lng);
 
   if (lng.error) return data({ error: lng.error }, { status: 400 });
@@ -17,10 +14,7 @@ export async function loader({ params }: Route.LoaderArgs) {
   const namespaces = resources[lng.data];
 
   const ns = z
-    .string()
-    .refine((ns): ns is keyof typeof namespaces => {
-      return Object.keys(resources[lng.data]).includes(ns);
-    })
+    .enum(Object.keys(namespaces) as Array<keyof typeof namespaces>)
     .safeParse(params.ns);
 
   if (ns.error) return data({ error: ns.error }, { status: 400 });
@@ -38,7 +32,7 @@ export async function loader({ params }: Route.LoaderArgs) {
         staleWhileRevalidate: "7d",
         // Serve stale content if there's an error for 7 days
         staleIfError: "7d",
-      })
+      }),
     );
   }
 

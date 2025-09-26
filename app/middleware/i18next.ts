@@ -1,7 +1,8 @@
 import { initReactI18next } from "react-i18next";
 import { createCookie } from "react-router";
-import { unstable_createI18nextMiddleware } from "remix-i18next/middleware";
+import { createI18nextMiddleware } from "remix-i18next/middleware";
 import resources from "~/locales";
+import "i18next";
 
 export const localeCookie = createCookie("lng", {
   path: "/",
@@ -11,7 +12,7 @@ export const localeCookie = createCookie("lng", {
 });
 
 export const [i18nextMiddleware, getLocale, getInstance] =
-  unstable_createI18nextMiddleware({
+  createI18nextMiddleware({
     detection: {
       supportedLanguages: ["es", "en"],
       fallbackLanguage: "en",
@@ -23,6 +24,7 @@ export const [i18nextMiddleware, getLocale, getInstance] =
 
 declare module "i18next" {
   interface CustomTypeOptions {
+    defaultNS: "translation";
     resources: typeof resources.en;
   }
 }

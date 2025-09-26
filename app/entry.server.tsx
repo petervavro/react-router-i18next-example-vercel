@@ -1,9 +1,6 @@
 import { PassThrough } from "node:stream";
 
-import type {
-  EntryContext,
-  unstable_RouterContextProvider,
-} from "react-router";
+import type { EntryContext, RouterContextProvider } from "react-router";
 import { createReadableStreamFromReadable } from "@react-router/node";
 import { ServerRouter } from "react-router";
 import { isbot } from "isbot";
@@ -19,7 +16,7 @@ export default function handleRequest(
   responseStatusCode: number,
   responseHeaders: Headers,
   entryContext: EntryContext,
-  routerContext: unstable_RouterContextProvider
+  routerContext: RouterContextProvider,
 ) {
   return new Promise((resolve, reject) => {
     let shellRendered = false;
@@ -46,7 +43,7 @@ export default function handleRequest(
             new Response(stream, {
               headers: responseHeaders,
               status: responseStatusCode,
-            })
+            }),
           );
 
           pipe(body);
@@ -58,7 +55,7 @@ export default function handleRequest(
           responseStatusCode = 500;
           if (shellRendered) console.error(error);
         },
-      }
+      },
     );
 
     setTimeout(abort, streamTimeout + 1000);

@@ -15,13 +15,13 @@ import {
 } from "./middleware/i18next";
 import { useTranslation } from "react-i18next";
 
-export const unstable_middleware = [i18nextMiddleware];
+export const middleware = [i18nextMiddleware];
 
 export async function loader({ context }: Route.LoaderArgs) {
   let locale = getLocale(context);
   return data(
     { locale },
-    { headers: { "Set-Cookie": await localeCookie.serialize(locale) } }
+    { headers: { "Set-Cookie": await localeCookie.serialize(locale) } },
   );
 }
 
