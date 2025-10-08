@@ -12,8 +12,11 @@ async function main() {
     .use(Fetch)
     .use(I18nextBrowserLanguageDetector)
     .init({
-      fallbackLng: "en",
+      fallbackLng: "en", // Change this to your default language
+      // Here we only want to detect the language from the html tag
+      // since the middleware already detected the language server-side
       detection: { order: ["htmlTag"], caches: [] },
+      // Update this to the path where your locales will be served
       backend: { loadPath: "/api/locales/{{lng}}/{{ns}}" },
     });
 
@@ -24,7 +27,7 @@ async function main() {
         <StrictMode>
           <HydratedRouter />
         </StrictMode>
-      </I18nextProvider>
+      </I18nextProvider>,
     );
   });
 }

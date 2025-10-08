@@ -6,7 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-import { useChangeLanguage } from "remix-i18next/react";
+import { useEffect } from "react";
 import type { Route } from "./+types/root";
 import {
   getLocale,
@@ -45,7 +45,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function App({ loaderData }: Route.ComponentProps) {
-  useChangeLanguage(loaderData.locale);
+export default function App({ loaderData: { locale } }: Route.ComponentProps) {
+  let { i18n } = useTranslation();
+  useEffect(() => {
+    if (i18n.language !== locale) i18n.changeLanguage(locale);
+  }, [locale, i18n]);
   return <Outlet />;
 }
